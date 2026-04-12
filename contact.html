@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Artemi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">ARTEMI</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="container two-col contact-col">
+
+      <!-- LEFT -->
+      <div class="contact-info">
+        <span class="label">Get in Touch</span>
+        <h1>Let's Create<br/>Something<br/>Extraordinary</h1>
+        <p>We welcome inquiries from brands and businesses seeking premium handcrafted products. Share your vision, and our artisans will bring it to life.</p>
+        <div class="contact-details">
+          <p><a href="mailto:hello@artemi.studio">hello@artemi.studio</a></p>
+          <p>+91 98765 43210</p>
+          <p>India</p>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="contact-form-wrap">
+        <h3>Enquiry Form</h3>
+        <p class="form-sub">Tell us about your project and we'll be in touch within 24 hours.</p>
+        <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+          <div class="form-group">
+            <label for="name">NAME</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required/>
+          </div>
+          <div class="form-group">
+            <label for="brand">BRAND / COMPANY</label>
+            <input type="text" id="brand" name="brand" placeholder="Your brand or company name"/>
+          </div>
+          <div class="form-group">
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label for="message">MESSAGE</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, requirements, and timeline..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-full">Send Enquiry</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="logo">ARTEMI</span>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <span class="copy">© 2026 Artemi Studio. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
