@@ -47,12 +47,14 @@ export type Service = {
   outcome: string;
   deliverables: string[];
   steps: { title: string; body: string }[];
+  proof: { value: number; suffix?: string; label: string };
   faq: { q: string; a: string }[];
 };
 
 export const services: Service[] = [
   {
     slug: 'ai-search-audit',
+    proof: { value: 120, label: 'buyer prompts mapped in a typical audit' },
     num: '01',
     name: 'AI Search Audit',
     short: 'See where AI assistants cite you, where they cite competitors, and why.',
@@ -78,6 +80,7 @@ export const services: Service[] = [
   },
   {
     slug: 'pipeline-content-engine',
+    proof: { value: 68, suffix: '%', label: 'lift in organic pipeline for one client in six months' },
     num: '02',
     name: 'Pipeline Content Engine',
     short: 'Expert-led articles built around the questions that create pipeline.',
@@ -103,6 +106,7 @@ export const services: Service[] = [
   },
   {
     slug: 'ai-search-refresh',
+    proof: { value: 24, label: 'new AI citations from one refresh cycle' },
     num: '03',
     name: 'AI Search Refresh',
     short: 'Rework the pages you already have so AI engines start citing them.',
@@ -128,6 +132,7 @@ export const services: Service[] = [
   },
   {
     slug: 'founder-voice',
+    proof: { value: 3, suffix: 'x', label: 'more inbound mentions of the founder by name' },
     num: '04',
     name: 'Founder Voice',
     short: 'Your founder’s expertise, written up and published where buyers look.',

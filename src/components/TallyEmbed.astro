@@ -13,14 +13,23 @@ const ready = isSet(id);
     <script is:inline src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
   </div>
 ) : (
-  <div class="embed-ph" data-placeholder="Tally form ID not set">
-    <p class="mono">Tally form goes here</p>
-    <p>Add the Tally form ID in <code>src/config/site.ts</code>. The form needs these fields:</p>
-    <ul><li>Work email</li><li>Company website</li><li>Competitor 1</li><li>Competitor 2</li></ul>
-    <a class="btn btn--primary" href="/thank-you" data-track="report_form_submit" data-track-location="report:form-preview">Preview the thank-you page</a>
-  </div>
+  <form class="pf" data-placeholder="Tally form ID not set (design stand-in form)" novalidate>
+    <!-- Design stand-in until the Tally form ID is set. Sends no data anywhere. -->
+    <label><span>Work email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required /></label>
+    <label><span>Company website</span><input type="url" name="website" placeholder="company.com" autocomplete="url" required /></label>
+    <label><span>Competitor 1</span><input type="text" name="c1" placeholder="competitor.com" required /></label>
+    <label><span>Competitor 2</span><input type="text" name="c2" placeholder="competitor.com" required /></label>
+    <button class="btn btn--primary" type="submit">Send me the report <span class="arrow" aria-hidden="true">→</span></button>
+  </form>
 )}
 <script>
+  document.querySelector<HTMLFormElement>('form.pf')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    if (!f.reportValidity()) return;
+    (window as any).artemiTrack?.('report_form_submit', { form_id: 'stand-in' });
+    window.location.href = '/thank-you';
+  });
   // Tally posts a message to the parent page when the form is submitted.
   window.addEventListener('message', (e) => {
     if (typeof e.origin !== 'string' || !e.origin.includes('tally.so')) return;
@@ -34,6 +43,11 @@ const ready = isSet(id);
 </script>
 <style>
   .tally { min-height: 520px; }
-  .embed-ph p:first-child { margin-bottom: 12px; }
-  code { font-family: var(--font-mono); font-size: 0.875em; }
+  .pf { display: grid; gap: 16px; }
+  .pf label { display: grid; gap: 6px; }
+  .pf label span { font-family: var(--font-mono); font-size: var(--fs-mono); text-transform: uppercase; letter-spacing: 0.02em; color: var(--graphite); }
+  .pf input { width: 100%; min-height: 48px; padding: 12px 14px; font: 400 1rem var(--font-sans); color: var(--ink); background: var(--paper); border: 1px solid var(--hairline); border-radius: 2px; }
+  .pf input::placeholder { color: #8d8b84; }
+  .pf input:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+  .pf .btn { margin-top: 8px; width: 100%; }
 </style>
