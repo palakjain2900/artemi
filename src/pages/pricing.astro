@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import PricingTable, { type Tier } from '../components/PricingTable.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABand from '../components/CTABand.astro';
+
+const tiers: Tier[] = [
+  { name: 'AI Search Audit', price: '$X,XXX', cadence: 'one-time', for: 'See where you stand and what to fix first.', includes: ['Buyer prompt map', 'Citation share vs. competitors', 'Prioritised fix list'], cta: { label: 'Book a call', href: '/book' } },
+  { name: 'Pipeline Content Engine', price: '$X,XXX', cadence: '/ month', for: 'Expert-led content, every month.', includes: ['Monthly expert interviews', 'Articles built for AI citation', 'Citation and ranking tracking', 'AI Search Refresh add-on available'], cta: { label: 'Book a call', href: '/book' }, featured: true },
+  { name: 'Founder Voice', price: '$X,XXX', cadence: '/ month', for: 'Thought leadership in your founder’s voice.', includes: ['Monthly founder interviews', 'LinkedIn posts and essays', 'Mention tracking'], cta: { label: 'Book a call', href: '/book' } },
+];
+const faq = [
+  { q: 'Is there a minimum commitment?', a: 'Placeholder answer.' },
+  { q: 'Can I combine services?', a: 'Placeholder answer.' },
+  { q: 'What does the AI Search Refresh cost?', a: 'Placeholder answer.' },
+];
+---
+<Base title="Pricing" description="Pricing for Artemi’s AI search audits, expert-led content engine, AI search refresh and founder voice programs for B2B SaaS teams.">
+  <section class="ph-hero">
+    <div class="container grid">
+      <div class="c-8">
+        <SectionLabel num="00" label="Pricing" />
+        <h1>Clear scope. Clear price.</h1>
+        <p class="lead">Start with an audit, or go straight to a monthly engine. Every plan is built around the prompts your buyers ask.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section section--flush" aria-labelledby="plans"><div class="container"><h2 id="plans" class="sr-only">Plans</h2><PricingTable tiers={tiers} /></div></section>
+  <section class="section">
+    <div class="container grid">
+      <div class="c-4"><SectionLabel num="01" label="FAQ" /><h2>Questions</h2></div>
+      <div class="c-8"><FAQ items={faq} /></div>
+    </div>
+  </section>
+  <CTABand location="pricing:cta-band" />
+</Base>
+<style>
+  .ph-hero { padding: clamp(40px, 6vw, 88px) 0 48px; }
+  .ph-hero h1 { margin-bottom: 24px; }
+</style>

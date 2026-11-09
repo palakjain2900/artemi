@@ -1,0 +1,98 @@
+---
+import { nav, primaryCta, site } from '../config/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+const servicesActive = path.startsWith('/services');
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="wordmark" aria-label={`${site.name} home`}>
+      <!-- Text wordmark until the logo file is provided -->
+      <span>Artemi</span><span class="dot" aria-hidden="true">.</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">Menu</span>
+      <span class="bars" aria-hidden="true"><span></span><span></span></span>
+    </button>
+
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <ul class="nav-list">
+        <li class="has-dd">
+          <button type="button" class:list={['nav-link dd-toggle', { active: servicesActive }]} aria-expanded="false" aria-controls="dd-services">
+            Services <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+          </button>
+          <ul id="dd-services" class="dd" hidden>
+            {nav.services.map((s, i) => (
+              <li>
+                <a href={s.href} aria-current={isActive(s.href) ? 'page' : undefined}>
+                  <span class="mono dd-num">0{i + 1}</span>
+                  <span class="dd-name">{s.label}</span>
+                  <span class="dd-short">{s.short}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+        {nav.links.map((l) => (
+          <li><a class:list={['nav-link', { active: isActive(l.href) }]} href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+      <a class="btn btn--primary header-cta" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location="header">{primaryCta.label}</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('.site-header')!;
+  const menuBtn = header.querySelector<HTMLButtonElement>('.menu-toggle')!;
+  const ddBtn = header.querySelector<HTMLButtonElement>('.dd-toggle')!;
+  const dd = header.querySelector<HTMLElement>('#dd-services')!;
+
+  const setDd = (open: boolean) => { ddBtn.setAttribute('aria-expanded', String(open)); dd.hidden = !open; };
+  const setMenu = (open: boolean) => { menuBtn.setAttribute('aria-expanded', String(open)); header.classList.toggle('menu-open', open); };
+
+  ddBtn.addEventListener('click', () => setDd(ddBtn.getAttribute('aria-expanded') !== 'true'));
+  menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('click', (e) => { if (!(e.target as Element).closest('.has-dd')) setDd(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (!dd.hidden) { setDd(false); ddBtn.focus(); } else if (header.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); }
+  });
+</script>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid var(--hairline); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 68px; }
+  .wordmark { font-weight: 700; font-size: 1.5rem; letter-spacing: -0.05em; text-decoration: none; display: inline-flex; }
+  .dot { color: var(--redline); }
+  .nav { display: flex; align-items: center; gap: 32px; }
+  .nav-list { display: flex; align-items: center; gap: 4px; }
+  .nav-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; font: 500 0.9375rem/1 var(--font-sans); color: var(--ink); text-decoration: none; background: none; border: 0; cursor: pointer; }
+  .nav-link:hover, .nav-link.active { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--hairline); }
+  .dd-toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
+  .has-dd { position: relative; }
+  .dd { position: absolute; top: calc(100% + 12px); left: -8px; width: 440px; background: var(--paper); border: 1px solid var(--ink); padding: 8px; }
+  .dd a { display: grid; grid-template-columns: 32px 1fr; gap: 2px 8px; padding: 12px; text-decoration: none; }
+  .dd a:hover, .dd a[aria-current] { background: var(--paper-2); }
+  .dd-num { color: var(--graphite); grid-row: span 2; padding-top: 4px; }
+  .dd-name { font-weight: 600; }
+  .dd-short { font-size: var(--fs-small); color: var(--graphite); line-height: 1.4; }
+  .header-cta { min-height: 44px; padding: 10px 16px; font-size: 0.9375rem; }
+  .menu-toggle { display: none; }
+
+  @media (max-width: 1023px) {
+    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: none; border: 1px solid var(--ink); border-radius: 2px; cursor: pointer; }
+    .bars { display: grid; gap: 6px; width: 18px; }
+    .bars span { height: 1.5px; background: var(--ink); transition: transform .2s; }
+    .menu-open .bars span:first-child { transform: translateY(3.75px) rotate(45deg); }
+    .menu-open .bars span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+    .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 16px; padding: 16px var(--gutter) 24px; background: var(--paper); border-bottom: 1px solid var(--ink); max-height: calc(100vh - 68px); overflow-y: auto; }
+    .menu-open .nav { display: flex; }
+    .nav-list { flex-direction: column; align-items: stretch; }
+    .nav-link { width: 100%; justify-content: space-between; padding: 0; font-size: 1.125rem; border-bottom: 1px solid var(--hairline); min-height: 52px; }
+    .dd { position: static; width: auto; border: 0; padding: 0 0 8px; }
+    .dd a { padding: 10px 0; }
+    .header-cta { width: 100%; }
+  }
+</style>

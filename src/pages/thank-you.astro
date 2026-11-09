@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { bookCta } from '../config/site';
+---
+<Base title="Thank you" description="Your AI Visibility Report request is in. Your report arrives within 48 hours." noindex>
+  <section class="ty">
+    <div class="container grid">
+      <div class="c-8">
+        <p class="mono muted">Request received</p>
+        <h1 class="display">Your report arrives within <span class="cite">48 hours<svg class="cite-stroke" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M1 6.5 C 18 3.5, 42 8, 64 5.2 S 92 3.8, 99 6"/></svg></span>.</h1>
+        <p class="lead">We’ll send it to your work email. Want to walk through it together?</p>
+        <div class="actions">
+          <a class="btn btn--primary" href={bookCta.href} data-track="book_call_click" data-track-location="thank-you">{bookCta.label} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="/">Back to home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .ty { padding: clamp(64px, 10vw, 160px) 0; }
+  .ty .c-8 > * + * { margin-top: 28px; }
+  .ty .cite { white-space: normal; }
+</style>

@@ -1,0 +1,8 @@
+---
+// Visible placeholder marker. Every fake number, result or quote goes through this.
+// The build check (scripts/check-placeholders.mjs) finds these by data-placeholder.
+interface Props { note?: string; block?: boolean; }
+const { note = 'placeholder', block = false } = Astro.props;
+const Tag = block ? 'div' : 'mark';
+---
+<Tag class:list={['ph', { 'ph-block': block }]} data-placeholder={note}><span class="ph-tag">[PLACEHOLDER]</span><slot /></Tag>

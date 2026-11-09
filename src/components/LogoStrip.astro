@@ -1,0 +1,17 @@
+---
+// Text wordmarks until logo files are provided.
+import { clients } from '../config/site';
+interface Props { label?: string; }
+const { label = 'Content for teams at' } = Astro.props;
+---
+<div class="logos">
+  <p class="mono muted">{label}</p>
+  <ul>{clients.map((c) => <li>{c}</li>)}</ul>
+</div>
+<style>
+  .logos { display: grid; gap: 20px; padding: 32px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+  .logos p { margin: 0; }
+  ul { display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; }
+  li { font-weight: 700; font-size: clamp(1.25rem, 2.2vw, 1.75rem); letter-spacing: -0.04em; color: var(--graphite); }
+  @media (min-width: 900px) { .logos { grid-template-columns: 3fr 9fr; align-items: center; } ul { justify-content: space-between; } }
+</style>

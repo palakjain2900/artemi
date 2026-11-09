@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import FounderNote from '../components/FounderNote.astro';
+import Placeholder from '../components/Placeholder.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import CTABand from '../components/CTABand.astro';
+import { site } from '../config/site';
+
+const principles = [
+  { t: 'Experts over keywords', b: 'We start with what your people know that nobody else does.' },
+  { t: 'Answers over articles', b: 'Every piece is built to answer a real buyer question directly.' },
+  { t: 'Evidence over adjectives', b: 'Numbers, sources and named experts. The things AI engines and buyers trust.' },
+];
+const personLd = { '@context': 'https://schema.org', '@type': 'Person', name: site.founder.name, jobTitle: 'Founder', worksFor: { '@id': `${site.url}/#organization` }, image: `${site.url}${site.founder.photo}` };
+---
+<Base title="About Artemi" description="Artemi is a B2B SaaS content agency founded by Palak Jain. We build expert-led content that ranks in search and gets cited by AI assistants." jsonLd={[personLd]}>
+  <section class="ah">
+    <div class="container grid">
+      <div class="c-8">
+        <SectionLabel num="00" label="About" />
+        <h1>A content agency built for how buyers search now.</h1>
+        <div class="lead"><Placeholder block note="about intro copy">About intro: Artemi’s story, who you work with, and why AI search changes content.</Placeholder></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <SectionLabel num="01" label="Principles" />
+      <h2 class="pr-title">How we work.</h2>
+      <ol class="grid pr">
+        {principles.map((p, i) => (<li class="c-4"><p class="mono muted">0{i + 1}</p><h3>{p.t}</h3><p class="muted">{p.b}</p></li>))}
+      </ol>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container"><SectionLabel num="02" label="Founder" /><FounderNote heading={`Hi, I’m ${site.founder.name.split(' ')[0]}.`} /></div>
+  </section>
+  <div class="container lstrip"><LogoStrip /></div>
+  <CTABand location="about:cta-band" />
+</Base>
+<style>
+  .ah { padding: clamp(40px, 6vw, 88px) 0 var(--section); }
+  .ah h1 { margin-bottom: 24px; }
+  .pr-title { margin-bottom: 48px; }
+  .pr { list-style: none; padding: 0; margin: 0; row-gap: 40px; }
+  .pr li { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .pr h3 { margin: 16px 0 12px; }
+  .lstrip { padding-bottom: var(--section); }
+</style>

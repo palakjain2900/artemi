@@ -1,0 +1,9 @@
+---
+interface Props { num: string; label: string; }
+const { num, label } = Astro.props;
+---
+<p class="section-label mono"><span>{num}</span><span aria-hidden="true"> / </span><span>{label}</span></p>
+<style>
+  .section-label { display: flex; gap: 0.4em; color: var(--graphite); margin: 0 0 32px; }
+  .section-label span:first-child { color: var(--ink); }
+</style>

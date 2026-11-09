@@ -1,0 +1,33 @@
+---
+import { primaryCta, bookCta } from '../config/site';
+interface Props { title?: string; body?: string; location?: string; secondary?: boolean; }
+const {
+  title = 'Find out if AI search recommends you, or your competitors.',
+  body = 'We run your buyers’ prompts across the major AI engines and send you the results.',
+  location = 'cta-band',
+  secondary = true,
+} = Astro.props;
+---
+<section class="ctab" aria-label="Get started">
+  <div class="container grid">
+    <h2 class="c-8">{title}</h2>
+    <div class="c-4 ctab-side">
+      <p>{body}</p>
+      <div class="actions">
+        <a class="btn btn--light" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location={location}>{primaryCta.label} <span class="arrow" aria-hidden="true">→</span></a>
+        {secondary && <a class="btn btn--outline-light" href={bookCta.href} data-track="book_call_click" data-track-location={location}>{bookCta.label}</a>}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .ctab { background: var(--ink); color: var(--paper); padding: clamp(64px, 9vw, 120px) 0; }
+  h2 { color: var(--paper); }
+  .ctab-side { display: flex; flex-direction: column; justify-content: flex-end; }
+  .ctab-side p { color: #c9c6bd; }
+  .btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .btn--light:hover { background: #fff; }
+  .btn--outline-light { background: transparent; color: var(--paper); border-color: #5a5953; }
+  .btn--outline-light:hover { border-color: var(--paper); }
+  .ctab :focus-visible { outline-color: var(--paper); }
+</style>

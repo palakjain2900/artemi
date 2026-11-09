@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+---
+<Base title="Terms of service" description="The terms that apply when you use the Artemi website and services.">
+  <section class="legal">
+    <div class="container grid">
+      <div class="c-8 prose">
+        <p class="mono muted">Legal</p>
+        <h1>Terms of service</h1>
+        <p class="mono muted">Last updated: <Placeholder note="terms last-updated date">date</Placeholder></p>
+        <Placeholder block note="terms full text">The full Terms of service text goes here. Have it reviewed before launch. It should cover the analytics tools (Google Analytics 4, Microsoft Clarity), the Tally form and Calendly.</Placeholder>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal { padding: clamp(40px, 6vw, 88px) 0 var(--section); }
+  .legal h1 { margin: 16px 0 24px; }
+</style>

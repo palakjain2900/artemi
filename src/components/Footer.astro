@@ -1,0 +1,44 @@
+---
+import { nav, primaryCta, bookCta, site } from '../config/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid top">
+      <div class="c-5">
+        <a href="/" class="wordmark">Artemi<span class="dot">.</span></a>
+        <p class="muted blurb">{site.tagline}</p>
+        <div class="actions">
+          <a class="btn btn--primary" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location="footer">{primaryCta.label}</a>
+        </div>
+      </div>
+      <nav class="c-3 s-7" aria-label="Services">
+        <p class="mono muted col-label">Services</p>
+        <ul>{nav.services.map((s) => <li><a class="link" href={s.href}>{s.label}</a></li>)}</ul>
+      </nav>
+      <nav class="c-3" aria-label="Company">
+        <p class="mono muted col-label">Company</p>
+        <ul>
+          {nav.links.map((l) => <li><a class="link" href={l.href}>{l.label}</a></li>)}
+          <li><a class="link" href={bookCta.href} data-track="book_call_click" data-track-location="footer">{bookCta.label}</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="bottom mono muted">
+      <span>© {year} {site.name}</span>
+      <span class="legal"><a class="link" href="/privacy">Privacy</a><a class="link" href="/terms">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<style>
+  .site-footer { border-top: 1px solid var(--ink); padding: 64px 0 32px; }
+  .wordmark { font-weight: 700; font-size: 2rem; letter-spacing: -0.05em; text-decoration: none; }
+  .dot { color: var(--redline); }
+  .blurb { margin: 12px 0 24px; max-width: 36ch; }
+  .col-label { margin-bottom: 16px; }
+  .top li + li { margin-top: 10px; }
+  .top nav { margin-top: 24px; }
+  @media (min-width: 900px) { .top nav { margin-top: 0; } }
+  .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+  .legal { display: flex; gap: 20px; }
+</style>

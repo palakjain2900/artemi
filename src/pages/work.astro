@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Placeholder from '../components/Placeholder.astro';
+import ExpertQuote from '../components/ExpertQuote.astro';
+import CTABand from '../components/CTABand.astro';
+import { clients } from '../config/site';
+
+const cases = clients.map((c, i) => ({
+  client: c,
+  service: ['Pipeline Content Engine', 'AI Search Refresh', 'AI Search Audit', 'Founder Voice', 'Pipeline Content Engine'][i],
+  headline: 'Case study headline goes here',
+  result: ['+X% organic pipeline', 'Cited in X prompts', 'X new AI citations', 'X inbound demos', '+X% signups'][i],
+}));
+---
+<Base title="Work: B2B SaaS content results" description="Case studies from B2B SaaS teams including Multiplier, Moxo, Juntrax, Aerosend and InboxKit: expert-led content and AI search results.">
+  <section class="wh">
+    <div class="container grid">
+      <div class="c-8">
+        <SectionLabel num="00" label="Work" />
+        <h1>Work that gets quoted.</h1>
+        <p class="lead">Selected work for B2B SaaS teams. Full case studies coming soon.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section section--flush">
+    <div class="container">
+      <ul class="cases">
+        {cases.map((c, i) => (
+          <li class="case grid">
+            <p class="c-3 mono muted">0{i + 1} / {c.service}</p>
+            <div class="c-6">
+              <h2 class="case-client">{c.client}</h2>
+              <p class="muted"><Placeholder note={`case headline: ${c.client}`}>{c.headline}</Placeholder></p>
+            </div>
+            <p class="c-3 case-result num"><Placeholder note={`case result: ${c.client}`}>{c.result}</Placeholder></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid">
+      <div class="c-8"><SectionLabel num="01" label="In their words" /><ExpertQuote quote="Placeholder client quote about working with Artemi." name="Client name" role="Role, Company" /></div>
+    </div>
+  </section>
+  <CTABand location="work:cta-band" />
+</Base>
+<style>
+  .wh { padding: clamp(40px, 6vw, 88px) 0 48px; }
+  .wh h1 { margin-bottom: 24px; }
+  .cases { border-top: 1px solid var(--ink); }
+  .case { padding: 32px 0; border-bottom: 1px solid var(--hairline); align-items: baseline; }
+  .case p { margin: 0; }
+  .case-client { font-size: var(--fs-h2); margin-bottom: 8px; }
+  .case-result { font-size: 1.25rem; font-weight: 600; }
+  @media (min-width: 900px) { .case-result { text-align: right; } }
+</style>

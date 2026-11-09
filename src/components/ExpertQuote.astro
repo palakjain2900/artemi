@@ -1,0 +1,23 @@
+---
+import Placeholder from './Placeholder.astro';
+interface Props { quote: string; name: string; role: string; placeholder?: boolean; size?: 'lg' | 'md'; }
+const { quote, name, role, placeholder = true, size = 'lg' } = Astro.props;
+---
+<figure class:list={['xq', `xq--${size}`]}>
+  <blockquote class="serif">
+    {placeholder ? <Placeholder note={`quote: ${name}`}>“{quote}”</Placeholder> : <>“{quote}”</>}
+  </blockquote>
+  <figcaption>
+    <span class="xq-name">{placeholder ? <Placeholder note={`quote author: ${name}`}>{name}</Placeholder> : name}</span>
+    <span class="mono muted">{role}</span>
+  </figcaption>
+</figure>
+<style>
+  .xq { margin: 0; }
+  blockquote { margin: 0 0 24px; line-height: 1.15; letter-spacing: -0.01em; }
+  .xq--lg blockquote { font-size: clamp(1.75rem, 3.6vw, 3rem); }
+  .xq--md blockquote { font-size: clamp(1.375rem, 2.2vw, 1.875rem); }
+  blockquote .ph-tag { font-size: 0.6875rem; vertical-align: 0.6em; }
+  figcaption { display: flex; flex-direction: column; gap: 4px; }
+  .xq-name { font-weight: 600; }
+</style>

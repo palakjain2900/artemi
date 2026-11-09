@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+---
+<Base title="Privacy policy" description="How Artemi collects, uses and protects personal data from visitors and clients.">
+  <section class="legal">
+    <div class="container grid">
+      <div class="c-8 prose">
+        <p class="mono muted">Legal</p>
+        <h1>Privacy policy</h1>
+        <p class="mono muted">Last updated: <Placeholder note="privacy last-updated date">date</Placeholder></p>
+        <Placeholder block note="privacy full text">The full Privacy policy text goes here. Have it reviewed before launch. It should cover the analytics tools (Google Analytics 4, Microsoft Clarity), the Tally form and Calendly.</Placeholder>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal { padding: clamp(40px, 6vw, 88px) 0 var(--section); }
+  .legal h1 { margin: 16px 0 24px; }
+</style>

@@ -1,0 +1,22 @@
+---
+interface Props { num: string; name: string; short: string; href: string; deliverables?: string[]; }
+const { num, name, short, href, deliverables = [] } = Astro.props;
+---
+<article class="offer">
+  <p class="mono muted">{num}</p>
+  <h3><a href={href} class="offer-link">{name}</a></h3>
+  <p class="offer-short">{short}</p>
+  {deliverables.length > 0 && <ul class="offer-list">{deliverables.slice(0, 3).map((d) => <li>{d}</li>)}</ul>}
+  <span class="offer-more mono" aria-hidden="true">Learn more →</span>
+</article>
+<style>
+  .offer { position: relative; display: flex; flex-direction: column; height: 100%; padding: 24px 0 8px; border-top: 1px solid var(--ink); }
+  .offer h3 { margin: 16px 0 12px; }
+  .offer-link { text-decoration: none; }
+  .offer-link::after { content: ''; position: absolute; inset: 0; }
+  .offer:hover .offer-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .offer-short { color: var(--graphite); }
+  .offer-list { margin: 8px 0 24px; font-size: var(--fs-small); }
+  .offer-list li { padding: 8px 0; border-top: 1px solid var(--hairline); }
+  .offer-more { margin-top: auto; }
+</style>

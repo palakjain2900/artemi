@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import StatBlock from '../../components/StatBlock.astro';
+import ExpertQuote from '../../components/ExpertQuote.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABand from '../../components/CTABand.astro';
+import OfferCard from '../../components/OfferCard.astro';
+import { services, primaryCta, bookCta, site, type Service } from '../../config/site';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service: s } = Astro.props as { service: Service };
+const others = services.filter((o) => o.slug !== s.slug);
+const serviceLd = {
+  '@context': 'https://schema.org', '@type': 'Service', '@id': `${site.url}/services/${s.slug}#service`,
+  name: s.name, description: s.description, serviceType: s.title, url: `${site.url}/services/${s.slug}`,
+  provider: { '@id': `${site.url}/#organization` }, areaServed: 'Worldwide', audience: { '@type': 'BusinessAudience', name: 'B2B SaaS companies' },
+};
+---
+<Base title={s.title} description={s.description} jsonLd={[serviceLd]}>
+  <section class="sh">
+    <div class="container grid">
+      <div class="c-8">
+        <p class="mono muted"><a class="link" href="/#services">Services</a> / {s.num}</p>
+        <h1>{s.name}</h1>
+        <p class="lead">{s.description}</p>
+        <div class="actions">
+          <a class="btn btn--primary" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location={`service:${s.slug}:hero`}>{primaryCta.label} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href={bookCta.href} data-track="book_call_click" data-track-location={`service:${s.slug}:hero`}>{bookCta.label}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <div class="c-5"><SectionLabel num="01" label="What you get" /><h2>{s.outcome}</h2></div>
+      <ul class="c-6 s-7 deliv">
+        {s.deliverables.map((d, i) => <li><span class="mono muted">0{i + 1}</span>{d}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionLabel num="02" label="How it works" />
+      <ol class="grid steps">
+        {s.steps.map((st, i) => (<li class="c-4"><p class="mono step-n">Step {i + 1}</p><h3>{st.title}</h3><p class="muted">{st.body}</p></li>))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <div class="c-7"><SectionLabel num="03" label="Proof" /><ExpertQuote quote="Placeholder client quote about this service and the result it delivered." name="Client name" role="Role, Company" size="md" /></div>
+      <div class="c-4 s-9"><StatBlock value={25} label="result metric for this service" highlight /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <div class="c-4"><SectionLabel num="04" label="FAQ" /><h2>Questions</h2></div>
+      <div class="c-8"><FAQ items={s.faq} /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionLabel num="05" label="Other services" />
+      <div class="grid">{others.map((o) => <div class="c-4"><OfferCard num={o.num} name={o.name} short={o.short} href={`/services/${o.slug}`} /></div>)}</div>
+    </div>
+  </section>
+
+  <CTABand location={`service:${s.slug}:cta-band`} />
+</Base>
+<style>
+  .sh { padding: clamp(40px, 6vw, 88px) 0 var(--section); }
+  .sh .c-8 > * + * { margin-top: 24px; }
+  .deliv { margin-top: 32px; border-top: 1px solid var(--ink); }
+  @media (min-width: 900px) { .deliv { margin-top: 0; } }
+  .deliv li { display: grid; grid-template-columns: 48px 1fr; padding: 20px 0; border-bottom: 1px solid var(--hairline); font-size: 1.125rem; font-weight: 500; }
+  .steps { list-style: none; padding: 0; margin: 0; row-gap: 40px; }
+  .steps li { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .steps h3 { margin: 16px 0 12px; }
+  .step-n { margin: 0; }
+  .c-4.s-9 { margin-top: 40px; }
+  @media (min-width: 900px) { .c-4.s-9 { margin-top: 0; } }
+</style>

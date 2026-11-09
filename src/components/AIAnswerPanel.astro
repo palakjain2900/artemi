@@ -1,0 +1,96 @@
+---
+// Signature hero visual: a buyer prompt types into an AI answer panel,
+// then the cited brand is underlined in redline like a pen stroke.
+// Without JS or with reduced motion, it renders in its finished state.
+import Placeholder from './Placeholder.astro';
+interface Props { prompt?: string; brand?: string; domain?: string; }
+const {
+  prompt = 'Which platforms are best for paying contractors in 30+ countries?',
+  brand = 'Your brand',
+  domain = 'yourbrand.com',
+} = Astro.props;
+---
+<figure class="aip" aria-label="Illustration: an AI assistant answering a buyer question and citing your brand">
+  <div class="aip-bar mono">
+    <span>AI answer</span>
+    <span class="muted">Illustration</span>
+  </div>
+
+  <div class="aip-prompt">
+    <span class="mono aip-label">Buyer prompt</span>
+    <p class="aip-prompt-text mono">
+      <span class="aip-ghost" aria-hidden="true">{prompt}</span>
+      <span class="aip-typed" data-text={prompt}>{prompt}</span>
+    </p>
+  </div>
+
+  <div class="aip-answer">
+    <p class="aip-line">
+      Three platforms come up most often. <span class="cite"><strong>{brand}</strong><svg class="cite-stroke" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" vector-effect="non-scaling-stroke" d="M1 6.5 C 18 3.5, 42 8, 64 5.2 S 92 3.8, 99 6"/></svg></span> is cited most for compliance depth, with a clear breakdown of local tax rules by country<sup class="aip-ref">1</sup>.
+    </p>
+    <p class="aip-line">Other options focus on payout speed<sup class="aip-ref">2</sup> or lower fees for small teams<sup class="aip-ref">3</sup>.</p>
+    <ol class="aip-sources mono aip-line">
+      <li><span class="aip-ref">1</span> <span class="aip-src-cited">{domain}/guides/contractor-tax</span></li>
+      <li><span class="aip-ref">2</span> competitor-a.com/blog</li>
+      <li><span class="aip-ref">3</span> review-site.com/compare</li>
+    </ol>
+    <p class="aip-meta mono aip-line">Cited in <Placeholder note="hero panel citation count">7 of 10</Placeholder> buyer prompts tracked</p>
+  </div>
+</figure>
+<script is:inline>
+  // Runs before paint: hide the finished state so the animation can play.
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var el = document.currentScript.previousElementSibling;
+    if (el && el.classList.contains('aip')) el.classList.add('is-animating');
+  })();
+</script>
+<script>
+  const panels = document.querySelectorAll<HTMLElement>('.aip.is-animating');
+  panels.forEach((panel) => {
+    const typed = panel.querySelector<HTMLElement>('.aip-typed')!;
+    const text = typed.dataset.text || '';
+    typed.textContent = '';
+    let i = 0;
+    const tick = () => {
+      i++;
+      typed.textContent = text.slice(0, i);
+      if (i < text.length) setTimeout(tick, 22 + Math.random() * 30);
+      else setTimeout(() => {
+        panel.classList.add('is-answered');
+        setTimeout(() => panel.classList.add('is-cited'), 900);
+      }, 450);
+    };
+    setTimeout(tick, 500);
+  });
+</script>
+<style>
+  .aip { margin: 0; background: var(--paper-2); border: 1px solid var(--ink); }
+  .aip-bar { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--ink); }
+  .aip-prompt { padding: 20px 16px 16px; border-bottom: 1px solid var(--hairline); }
+  .aip-label { display: block; color: var(--graphite); margin-bottom: 8px; }
+  .aip-prompt-text { position: relative; display: grid; margin: 0; font-size: 0.875rem; text-transform: none; letter-spacing: 0; line-height: 1.5; }
+  .aip-ghost, .aip-typed { grid-area: 1 / 1; }
+  .aip-ghost { visibility: hidden; }
+  .aip-answer { padding: 20px 16px; font-size: 1rem; line-height: 1.55; }
+  .aip-answer p { margin: 0 0 12px; }
+  .aip-ref { font-family: var(--font-mono); font-size: 0.6875rem; padding: 0 3px; margin-left: 1px; border: 1px solid var(--hairline); color: var(--graphite); }
+  .aip-sources { display: grid; gap: 6px; margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--hairline); text-transform: none; letter-spacing: 0; color: var(--graphite); }
+  .aip-sources li { display: flex; gap: 8px; align-items: baseline; overflow-wrap: anywhere; }
+  .aip-src-cited { color: var(--ink); text-decoration: underline; text-decoration-color: var(--redline); text-underline-offset: 3px; }
+  .aip-meta { margin-top: 16px !important; color: var(--ink); text-transform: none; letter-spacing: 0; }
+  .cite-stroke path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+  @media (min-width: 768px) { .aip-prompt, .aip-answer { padding-left: 24px; padding-right: 24px; } }
+
+  /* Animated states (only applied when motion is allowed and JS runs) */
+  .aip.is-animating .aip-line { opacity: 0; transform: translateY(4px); transition: opacity .5s ease, transform .5s ease; }
+  .aip.is-animating .aip-line:nth-child(2) { transition-delay: .15s; }
+  .aip.is-animating .aip-line:nth-child(3) { transition-delay: .3s; }
+  .aip.is-animating .aip-line:nth-child(4) { transition-delay: .45s; }
+  .aip.is-answered .aip-line { opacity: 1; transform: none; }
+  .aip.is-animating .cite-stroke path { stroke-dashoffset: 1; transition: stroke-dashoffset .7s cubic-bezier(.6,.05,.3,1); }
+  .aip.is-cited .cite-stroke path { stroke-dashoffset: 0; }
+  .aip.is-animating .aip-typed::after { content: ''; display: inline-block; width: 0.55em; height: 1.1em; margin-left: 2px; vertical-align: -0.2em; background: var(--ink); animation: blink 1s steps(1) infinite; }
+  .aip.is-answered .aip-typed::after { display: none; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>

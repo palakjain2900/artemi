@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import CalendlyEmbed from '../components/CalendlyEmbed.astro';
+import { primaryCta } from '../config/site';
+---
+<Base title="Book a call" description="Book a 30-minute call with Artemi to talk about expert-led content and your brand’s visibility in AI search.">
+  <section class="bk">
+    <div class="container grid">
+      <div class="c-4">
+        <SectionLabel num="00" label="Book" />
+        <h1>Book a call.</h1>
+        <p class="lead">30 minutes. We’ll look at where AI search sends your buyers and whether we can help.</p>
+        <p class="muted alt">Not ready to talk? <a class="link" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location="book:sidebar">Get the free AI Visibility Report</a> first.</p>
+      </div>
+      <div class="c-7 s-6 bk-cal"><CalendlyEmbed /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .bk { padding: clamp(40px, 6vw, 88px) 0 var(--section); }
+  .bk h1 { margin-bottom: 24px; }
+  .alt { margin-top: 32px; }
+  .bk-cal { margin-top: 32px; }
+  @media (min-width: 900px) { .bk-cal { margin-top: 0; } }
+</style>

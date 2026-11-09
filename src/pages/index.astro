@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import AIAnswerPanel from '../components/AIAnswerPanel.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import StatBlock from '../components/StatBlock.astro';
+import OfferCard from '../components/OfferCard.astro';
+import ExpertQuote from '../components/ExpertQuote.astro';
+import FounderNote from '../components/FounderNote.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABand from '../components/CTABand.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { services, primaryCta, bookCta, site } from '../config/site';
+
+const faq = [
+  { q: 'What is AI search visibility?', a: 'How often AI assistants like ChatGPT, Perplexity and Google AI Overviews mention and cite your brand when buyers ask about your category. Placeholder answer.' },
+  { q: 'What is in the free AI Visibility Report?', a: 'Placeholder answer: list what the report covers and how it is delivered.' },
+  { q: 'Who is Artemi for?', a: 'Placeholder answer: B2B SaaS teams with experts worth quoting.' },
+  { q: 'How is this different from SEO?', a: 'Placeholder answer.' },
+];
+const websiteLd = { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url, publisher: { '@id': `${site.url}/#organization` } };
+---
+<Base
+  title="Artemi | B2B SaaS content that gets cited in AI search"
+  description="Artemi turns your experts into B2B SaaS content that ranks in Google and gets cited by ChatGPT, Perplexity and AI Overviews. Get your free AI Visibility Report."
+  jsonLd={[websiteLd]}
+>
+  <section class="hero">
+    <div class="container grid">
+      <div class="c-6 hero-copy">
+        <p class="mono muted">B2B SaaS content agency</p>
+        <h1 class="display">Get cited when buyers ask AI.</h1>
+        <p class="lead">Expert-led content that ranks in search and becomes the source ChatGPT, Perplexity and AI Overviews quote.</p>
+        <div class="actions">
+          <a class="btn btn--primary" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location="home:hero">{primaryCta.label} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href={bookCta.href} data-track="book_call_click" data-track-location="home:hero">{bookCta.label}</a>
+        </div>
+      </div>
+      <div class="c-6 hero-visual">
+        <AIAnswerPanel />
+      </div>
+    </div>
+    <div class="container"><LogoStrip /></div>
+  </section>
+
+  <section class="section section--flush">
+    <div class="container">
+      <SectionLabel num="01" label="AI search" />
+      <div class="grid">
+        <h2 class="c-7">Your buyers ask AI before they ask you.</h2>
+        <p class="c-4 s-9 lead muted">If AI answers name your competitors and not you, you lose the shortlist before a single sales call.</p>
+      </div>
+      <div class="grid stats">
+        <div class="c-4"><StatBlock value={60} suffix="%" label="of B2B buyers use AI assistants during vendor research" source="to be added" /></div>
+        <div class="c-4"><StatBlock value={3} suffix="x" label="more likely to shortlist a vendor cited in an AI answer" source="to be added" highlight /></div>
+        <div class="c-4"><StatBlock value={4} label="average sources cited per AI answer" source="to be added" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <SectionLabel num="02" label="Services" />
+      <div class="grid">
+        <h2 class="c-8">Four ways we make you the cited answer.</h2>
+      </div>
+      <div class="grid offers">
+        {services.map((s) => (
+          <div class="c-6"><OfferCard num={s.num} name={s.name} short={s.short} href={`/services/${s.slug}`} deliverables={s.deliverables} /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionLabel num="03" label="Method" />
+      <div class="grid">
+        <div class="c-5">
+          <h2>Experts first. Then editing that cuts.</h2>
+          <p class="lead muted method-lead">We interview your people, write from what they know, and edit every line toward a clear, quotable answer.</p>
+        </div>
+        <figure class="c-6 s-7 draft" aria-label="Annotated draft showing an edit">
+          <div class="draft-bar mono"><span>Draft v2 · Edit pass</span><Placeholder note="sample draft in Method section">Sample draft</Placeholder></div>
+          <div class="draft-body">
+            <p><del class="edit">In today’s fast-paced digital landscape, businesses are increasingly leveraging innovative solutions to</del> <ins class="edit">Most finance teams close the books in 6 days.</ins> The fastest close in 2.</p>
+            <p>The difference is not software. It is <span class="cite">who owns reconciliation<svg class="cite-stroke" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M1 6.5 C 18 3.5, 42 8, 64 5.2 S 92 3.8, 99 6"/></svg></span>.</p>
+            <p class="draft-note mono">Editor: lead with the number, cut the throat-clearing. Expert quote from CFO interview, 14 min.</p>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionLabel num="04" label="Results" />
+      <div class="grid">
+        <div class="c-7">
+          <ExpertQuote quote="Artemi got us named in the AI answers our buyers actually read. Sales noticed before marketing did." name="Client name" role="Role, Company" />
+        </div>
+        <div class="c-4 s-9 results">
+          <StatBlock value={42} label="buyer prompts where a client is now cited" highlight />
+          <StatBlock value={180} suffix="%" label="increase in AI-referred demo requests" />
+        </div>
+      </div>
+      <p class="results-link"><a class="link" href="/work">See the work →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionLabel num="05" label="Founder" />
+      <FounderNote />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <div class="c-4"><SectionLabel num="06" label="FAQ" /><h2>Questions</h2></div>
+      <div class="c-8"><FAQ items={faq} /></div>
+    </div>
+  </section>
+
+  <CTABand location="home:cta-band" />
+</Base>
+
+<style>
+  .hero { padding: clamp(40px, 7vw, 96px) 0 0; }
+  .hero-copy { display: flex; flex-direction: column; gap: 24px; align-self: center; }
+  .hero-copy p { margin: 0; }
+  .hero-visual { margin-top: 24px; }
+  @media (min-width: 900px) { .hero-visual { margin-top: 0; } }
+  .hero .logos { margin-top: clamp(48px, 7vw, 96px); }
+  .stats, .offers { margin-top: clamp(40px, 6vw, 80px); row-gap: 40px; }
+  .method-lead { margin-top: 24px; }
+  .draft { margin: 32px 0 0; border: 1px solid var(--ink); background: #fff; }
+  @media (min-width: 900px) { .draft { margin-top: 0; } }
+  .draft-bar { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--hairline); }
+  .draft-body { padding: 24px 16px; font-size: 1.125rem; }
+  @media (min-width: 768px) { .draft-body { padding: 32px; } }
+  .draft-note { margin: 24px 0 0; padding: 12px; border-left: 2px solid var(--redline); background: var(--paper); text-transform: none; letter-spacing: 0; line-height: 1.5; }
+  .results { display: grid; gap: 40px; margin-top: 40px; }
+  @media (min-width: 900px) { .results { margin-top: 0; } }
+  .results-link { margin-top: 48px; }
+</style>

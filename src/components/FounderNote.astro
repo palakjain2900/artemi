@@ -1,0 +1,23 @@
+---
+import { site } from '../config/site';
+import Placeholder from './Placeholder.astro';
+interface Props { heading?: string; }
+const { heading = 'A note from the founder' } = Astro.props;
+---
+<div class="fn grid">
+  <div class="c-4 fn-photo">
+    <img src={site.founder.photo} alt={`${site.founder.name}, founder of Artemi`} width="480" height="600" loading="lazy" decoding="async" />
+  </div>
+  <div class="c-7 s-6 fn-body">
+    <h2>{heading}</h2>
+    <div class="fn-text"><slot><Placeholder block note="founder note copy">Founder note goes here: why Artemi exists, how you work with experts, and what clients can expect.</Placeholder></slot></div>
+    <p class="fn-sign"><strong>{site.founder.name}</strong><span class="mono muted">{site.founder.role}</span></p>
+  </div>
+</div>
+<style>
+  .fn-photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: var(--paper-2); border: 1px solid var(--hairline); filter: grayscale(1) contrast(1.05); }
+  .fn-body h2 { margin: 24px 0; }
+  @media (min-width: 900px) { .fn-body h2 { margin-top: 0; } }
+  .fn-text { font-size: var(--fs-lead); line-height: 1.5; max-width: 52ch; }
+  .fn-sign { display: flex; flex-direction: column; gap: 4px; margin-top: 32px; }
+</style>

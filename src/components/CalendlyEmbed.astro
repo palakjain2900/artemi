@@ -1,0 +1,27 @@
+---
+import { integrations, isSet } from '../config/site';
+const url = integrations.calendlyUrl;
+const ready = isSet(url);
+const src = ready ? `${url}${url.includes('?') ? '&' : '?'}hide_gdpr_banner=1&background_color=f4f1ea&text_color=111110&primary_color=111110` : '';
+---
+{ready ? (
+  <div class="cal">
+    <div class="calendly-inline-widget" data-url={src} style="min-width:320px;height:720px;"></div>
+    <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </div>
+) : (
+  <div class="embed-ph" data-placeholder="Calendly URL not set">
+    <p class="mono"><span class="ph-tag">[PLACEHOLDER]</span>Calendly booking calendar goes here</p>
+    <p>Add your Calendly scheduling link in <code>src/config/site.ts</code>.</p>
+  </div>
+)}
+<script>
+  window.addEventListener('message', (e) => {
+    if (e.origin !== 'https://calendly.com') return;
+    if (e.data?.event === 'calendly.event_scheduled') (window as any).artemiTrack?.('book_call_scheduled', {});
+  });
+</script>
+<style>
+  .cal { min-height: 720px; border: 1px solid var(--hairline); }
+  code { font-family: var(--font-mono); font-size: 0.875em; }
+</style>
