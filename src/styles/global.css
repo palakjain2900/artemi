@@ -6,7 +6,6 @@
   --redline-tint: #fbe3de;
   --graphite: #6b6a64;
   --hairline: #cfc9bb;
-  --paper-2: #f0ede5; /* panel surface, derived from paper */
 
   --font-sans: 'Inter Tight', 'Inter Tight Fallback', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
@@ -106,7 +105,7 @@ ins.edit { text-decoration: none; background: linear-gradient(transparent 62%, v
 /* ───────────── Buttons and links ───────────── */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 20px; font: 600 1rem/1.2 var(--font-sans); letter-spacing: -0.01em; text-decoration: none; border: 1px solid var(--ink); border-radius: 2px; cursor: pointer; transition: background-color .15s, color .15s; }
 .btn--primary { background: var(--ink); color: var(--paper); }
-.btn--primary:hover { background: #2a2a28; }
+.btn--primary:hover { background: var(--graphite); border-color: var(--graphite); }
 .btn--ghost { background: transparent; color: var(--ink); }
 .btn--ghost:hover { background: var(--ink); color: var(--paper); }
 .btn .arrow { transition: transform .15s; }

@@ -1,0 +1,12 @@
+---
+// Artemi wordmark: "Artemi" + citation marker [1]. Drawn from font outlines; colour follows text colour.
+import svg from '../assets/artemi-wordmark.svg?raw';
+interface Props { height?: number; }
+const { height = 24 } = Astro.props;
+const html = svg.replace('<svg ', `<svg height="${height}" aria-hidden="true" focusable="false" `);
+---
+<span class="logo" set:html={html} />
+<style>
+  .logo { display: inline-flex; color: var(--ink); }
+  .logo :global(svg) { width: auto; display: block; }
+</style>

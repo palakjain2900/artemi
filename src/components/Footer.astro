@@ -1,12 +1,13 @@
 ---
 import { nav, primaryCta, bookCta, site } from '../config/site';
+import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="container">
     <div class="grid top">
       <div class="c-5">
-        <a href="/" class="wordmark">Artemi<span class="dot">.</span></a>
+        <a href="/" class="wordmark" aria-label="Artemi home"><Logo height={34} /></a>
         <p class="muted blurb">{site.tagline}</p>
         <div class="actions">
           <a class="btn btn--primary" href={primaryCta.href} data-track="cta_click" data-track-label={primaryCta.label} data-track-location="footer">{primaryCta.label}</a>
@@ -32,8 +33,7 @@ const year = new Date().getFullYear();
 </footer>
 <style>
   .site-footer { border-top: 1px solid var(--ink); padding: 64px 0 32px; }
-  .wordmark { font-weight: 700; font-size: 2rem; letter-spacing: -0.05em; text-decoration: none; }
-  .dot { color: var(--redline); }
+  .wordmark { display: inline-flex; text-decoration: none; }
   .blurb { margin: 12px 0 24px; max-width: 36ch; }
   .col-label { margin-bottom: 16px; }
   .top li + li { margin-top: 10px; }
