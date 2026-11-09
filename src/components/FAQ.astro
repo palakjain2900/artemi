@@ -1,12 +1,14 @@
 ---
-interface Props { items: { q: string; a: string }[]; }
+import Placeholder from './Placeholder.astro';
+// Answers count as draft (hidden placeholder marker) until an item has final: true.
+interface Props { items: { q: string; a: string; final?: boolean }[]; }
 const { items } = Astro.props;
 ---
 <div class="faq">
   {items.map((it) => (
     <details>
       <summary><span>{it.q}</span><span class="faq-icon" aria-hidden="true"></span></summary>
-      <div class="faq-a"><p>{it.a}</p></div>
+      <div class="faq-a"><p>{it.final ? it.a : <Placeholder note={`FAQ answer: ${it.q}`}>{it.a}</Placeholder>}</p></div>
     </details>
   ))}
 </div>

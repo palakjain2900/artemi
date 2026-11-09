@@ -14,10 +14,10 @@ const ready = isSet(id);
   </div>
 ) : (
   <div class="embed-ph" data-placeholder="Tally form ID not set">
-    <p class="mono"><span class="ph-tag">[PLACEHOLDER]</span>Tally form goes here</p>
+    <p class="mono">Tally form goes here</p>
     <p>Add the Tally form ID in <code>src/config/site.ts</code>. The form needs these fields:</p>
     <ul><li>Work email</li><li>Company website</li><li>Competitor 1</li><li>Competitor 2</li></ul>
-    <a class="btn btn--primary" href="/thank-you" data-track="report_form_submit" data-track-location="report:placeholder-form">Preview the thank-you page</a>
+    <a class="btn btn--primary" href="/thank-you" data-track="report_form_submit" data-track-location="report:form-preview">Preview the thank-you page</a>
   </div>
 )}
 <script>

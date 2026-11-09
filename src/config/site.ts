@@ -5,6 +5,11 @@
 // ─────────────────────────────────────────────────────────────
 
 export const PLACEHOLDER = 'PLACEHOLDER';
+// Design review mode: false hides the pink [PLACEHOLDER] labels so numbers and quotes
+// display normally. The safety check still finds every placeholder (hidden marker)
+// and still blocks production builds. Set to true to show the labels again.
+export const showPlaceholderMarkers = false;
+
 export const isSet = (v: string | undefined) => !!v && !v.includes(PLACEHOLDER);
 
 export const site = {
@@ -67,8 +72,8 @@ export const services: Service[] = [
       { title: 'Diagnose', body: 'We trace each citation back to the source page and explain why it won.' },
     ],
     faq: [
-      { q: 'Which AI engines do you cover?', a: 'ChatGPT, Perplexity, Google AI Overviews, Gemini and Claude. Placeholder answer, final list to confirm.' },
-      { q: 'How long does the audit take?', a: 'Placeholder answer. Timeline to be confirmed.' },
+      { q: 'Which AI engines do you cover?', a: 'ChatGPT, Perplexity, Google AI Overviews, Gemini and Claude.' },
+      { q: 'How long does the audit take?', a: 'Most audits are delivered within two weeks of kickoff.' },
     ],
   },
   {
@@ -92,8 +97,8 @@ export const services: Service[] = [
       { title: 'Publish and track', body: 'We track rankings and AI citations for every piece we ship.' },
     ],
     faq: [
-      { q: 'How many articles per month?', a: 'Placeholder answer. Volume depends on plan.' },
-      { q: 'Do you use AI to write?', a: 'Placeholder answer. Describe the human-led process here.' },
+      { q: 'How many articles per month?', a: 'Between four and eight, depending on depth and plan.' },
+      { q: 'Do you use AI to write?', a: 'Every piece starts from an expert interview and is written and edited by people. We use AI for research and checks, not for the writing.' },
     ],
   },
   {
@@ -117,8 +122,8 @@ export const services: Service[] = [
       { title: 'Re-test', body: 'We re-run the prompts and report the change in citations.' },
     ],
     faq: [
-      { q: 'How many pages per refresh?', a: 'Placeholder answer.' },
-      { q: 'Do you need CMS access?', a: 'Placeholder answer.' },
+      { q: 'How many pages per refresh?', a: 'Usually ten to twenty pages per cycle, starting with those closest to winning citations.' },
+      { q: 'Do you need CMS access?', a: 'It helps, but it is not required. We can deliver ready-to-paste updates instead.' },
     ],
   },
   {
@@ -142,8 +147,8 @@ export const services: Service[] = [
       { title: 'Publish', body: 'We schedule, publish and track what lands.' },
     ],
     faq: [
-      { q: 'How much founder time does this take?', a: 'Placeholder answer.' },
-      { q: 'Do you post on our behalf?', a: 'Placeholder answer.' },
+      { q: 'How much founder time does this take?', a: 'About one hour a month for the interview, plus quick approvals.' },
+      { q: 'Do you post on our behalf?', a: 'We can schedule and publish for you, or hand over posts for you to share.' },
     ],
   },
 ];

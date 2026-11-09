@@ -1,8 +1,12 @@
 ---
-// Visible placeholder marker. Every fake number, result or quote goes through this.
-// The build check (scripts/check-placeholders.mjs) finds these by data-placeholder.
+// Marks placeholder content. Always carries a hidden data-placeholder marker that
+// scripts/check-placeholders.mjs uses to block production builds.
+// Visible label + highlight only when showPlaceholderMarkers is true (src/config/site.ts).
+import { showPlaceholderMarkers } from '../config/site';
 interface Props { note?: string; block?: boolean; }
 const { note = 'placeholder', block = false } = Astro.props;
-const Tag = block ? 'div' : 'mark';
+const Tag = block ? 'div' : showPlaceholderMarkers ? 'mark' : 'span';
 ---
-<Tag class:list={['ph', { 'ph-block': block }]} data-placeholder={note}><span class="ph-tag">[PLACEHOLDER]</span><slot /></Tag>
+{showPlaceholderMarkers
+  ? <Tag class:list={['ph', { 'ph-block': block }]} data-placeholder={note}><span class="ph-tag">[PLACEHOLDER]</span><slot /></Tag>
+  : <Tag data-placeholder={note}><slot /></Tag>}

@@ -116,7 +116,7 @@ ins.edit { text-decoration: none; background: linear-gradient(transparent 62%, v
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* ───────────── Embeds (integration placeholders) ───────────── */
-.embed-ph { border: 1px dashed var(--redline); background: var(--redline-tint); padding: 24px; }
+.embed-ph { border: 1px dashed var(--hairline); background: var(--paper); padding: 24px; }
 .embed-ph ul { list-style: square; padding-left: 1.2em; margin: 12px 0; }
 
 @media (prefers-reduced-motion: reduce) {
